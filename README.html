@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEALWITHDATA使用说明</title>
+</head>
+<body>
+    <h1>DEALWITHDATA使用说明</h1>
+    <h2>总体说明：</h2>
+    <p>
+        要详细了解整个影像处理过程，主要需要提前掌握相应的python语言基础、基础javascrip语法、C# .net core程序搭建，html/css相关语法，以及tensorflow深度学习框架，以及GEE基本查询显示导出功能,在此项目中多线程模式常常贯穿于整个处理过程希望了解相关指示。整个文件夹结构<br>
+        <li>DEALWITHDATA</li>
+        <li>DEALWITHTEST</li>
+        <li>DEALWITHTRAIN</li>
+        <li>testDir</li>
+        <li>GLACIERSPLIT</li>
+        <li>CheckEnv.exe</li>
+        <li>glacier2.1.0.0.nupkg</li>
+        <li>glacier2.exe</li>
+        <li>glacier2.1.0.0.nupkg</li>
+        在整个过程中首先确保您安装了python3.7或以上版本。同时确保python相应安装路径加入到系统环境变量当中<br>
+        在您完成上述工作后首先使用CheckEnv.exe安装 tensorflow、tqdm两个python依赖库如果已经安装程序则会自动结束运行<br>
+        下面则进入到正式的工作环节
+    </p>
+    <h2>DEALWITHDATA</h2>
+    <p>
+
+        DEALWITHDATA文件夹中包含运行glacier2.exe 遥感影像处理程序的必要环境与资源 
+        <br>
+        1 软件打开界面如下<br>
+        <img src="html/start.png" alt=""><br>
+        2 点击选择图像文件夹设置原始JPG/LABEL图像的保存位置 后点击Check程序会检查JPG与LABEL是否匹配，jpg/label文件名称应当一一对应并且相等<br>
+        <img src="html/1.png" alt=""><br>
+        <img src="html/2.png" alt=""><br>
+        3 点击ClipDirChose 设置图像切割保存文件夹，文件夹下应该含有jpg/label子文件夹 同时设置切割大小一般设置为256 如运行环境内存大于4G推荐启用多线程模式 之后点击StartClip程序开始切割文件夹下图像<br>
+        <img src="html/3.png" alt=""><br>
+        4 labelCleanScale一般设置为1用于去除无冰川标注的样本之后点击Clean <br>
+        <img src="html/4.png" alt=""><br>
+        5 点击VisioDir设置可视化文件夹 <br>
+        <img src="html/5.png" alt=""><br>
+        6 设置VISIOSCALE可视化因子 推荐250 之后点击labelVisio执行<br>
+        <img src="html/6.png" alt=""><br>
+        <video src="html/1.mp4" width="1200" controls></video><br>
+        7 点击TfrecordDir设置 train.record/test.record文件保存位置 同时设置训练样本占所有样本的权重 点击MadeRecord执行<br>
+        <img src="html/7.png" alt=""><br>
+        <video src="html/2.mp4" width="1200" controls></video><br>
+    </p>
+
+    <h2>DEALWITHTRAIN</h2>
+    <p>
+        DEALWITHTRAIN目录下包含以下子文件夹 DEALWITHTRAIN主要用于cnn/fcn网络搭建 以及在colab上的训练<br>
+        <li>cnn_</li>
+        <li>colab</li>
+        <li>fcn_</li>
+        <li>pkginstall.exe</li>
+        <li>request.txt</li>
+        在本地环境配置修改时，应当首先执行pkginstall.exe安装request.txt下的py依赖包<br>
+        fcn_文件夹下包含<br>
+        Efficiunet_b.py 用于tf深度学习图像语义分割网络搭建<br>
+        MadeRecord_r.py 用于解析tfrecord文件生成相应的训练或者测试样本<br>
+        Train.py 训练主函数 主要用于设置训练学习率、步数、批次、损失函数搭建、保存策略、验证指数搭建<br>
+        Test.py 测试训练完成后的模型在整体样本上的精度<br>
+        colab 文件夹下包含 <br>
+        EFNET.ipynb 在Colab上直接执行 用于训练模型。同时其他两个模型文件以及解析文件 包括.record文件一并上传到谷歌云盘上，之后使用COLAB开始训练<br>
+    </p>
+
+    <h2>DEALWITHTEST</h2>
+    <p>
+        在以上操作步骤完成以后得到相应的最优 model.h5模型文件之后将其部属到gDrive上后 执行GetGeeMap.ipynb文件将model.h5文件转换为tf格式的文件<br>
+        之后执行GEEUSED.ipynb文件获取整个区域AI标注影像<br>
+    </p>
+
+    <h2>GLACIERSPLIT</h2>
+    GLACIERSPLIT为本地运行条件与云端两种方式<br>
+</body>
+</html>

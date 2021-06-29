@@ -1,0 +1,8 @@
+tqdm==4.56.0
+efficientnet==1.1.1
+numpy==1.18.5
+opencv_python==4.1.2.30
+tensorflow_gpu==2.3.0
+main==0.1
+Pillow==8.2.0
+tensorflow==2.4.0
